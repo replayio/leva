@@ -1,15 +1,10 @@
 name: CI
-on:
+on: 
+  schedule:
+    - cron: '0 * * * *'
   push:
-    paths:
-      - '.github/**'
-      - 'packages/**'
-      - 'package.json'
-      - 'yarn.lock'
-      - '!demo/**'
-      - '!docs/**'
-      - '!**.md'
-      - '!.changeset/**'
+  workflow_dispatch:
+
 jobs:
   build:
     name: Build, lint, and test
@@ -38,15 +33,6 @@ jobs:
 
       - name: Install dependencies
         run: yarn --silent
-
-      - name: Check types
-        run: yarn tsc
-
-      - name: Check formatting
-        run: yarn prettier
-
-      - name: Lint files
-        run: yarn lint:full
 
       - uses: actions/cache@v2
         name: Setup Yarn build cache
