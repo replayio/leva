@@ -48,4 +48,13 @@ jobs:
         run: yarn build
 
       - name: Cypress run
-        run: yarn ci:test
+        run: yarn ci:test:replay
+        env:
+          RECORD_ALL_CONTENT: 1
+          RECORD_REPLAY_METADATA_FILE: /tmp/replay-metadata
+
+      - name: Upload replays
+        if: ${{ always() }}
+        uses: replayio/action-upload@v0.4.6
+        with:
+          api-key: rwk_5LiZGrCNbhfhsRZDHBD7kNoHd0gPqWg0SK82jUd5Cw8
